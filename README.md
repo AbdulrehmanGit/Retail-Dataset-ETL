@@ -48,23 +48,22 @@ The pipeline processes three retail-related datasets:
        └─────────────────────┘
                    ↓
       Power BI (Visualization)
+```
 
----
-
-📁 Repository Structure
+## 📁 Repository Structure
 retail-etl-pipeline/
-├── extract.py                 # Ingests and cleans CSVs, loads into staging
-├── transform.py              # Transforms staging data to star schema
-├── load.py                   # Converts PostgreSQL tables to Parquet
-├── utils.py                  # Reusable Spark & DB config + data cleaning
-├── /DirectoryTo/Dataset 1/   # Raw input CSV files
-├── /DirectoryTo/ETL/         # Output Parquet files
-├── README.md                 # Project documentation
+- ├── extract.py                 # Ingests and cleans CSVs, loads into staging
+- ├── transform.py              # Transforms staging data to star schema
+- ├── load.py                   # Converts PostgreSQL tables to Parquet
+- ├── utils.py                  # Reusable Spark & DB config + data cleaning
+- ├── /DirectoryTo/Dataset 1/   # Raw input CSV files
+- ├── /DirectoryTo/ETL/         # Output Parquet files
+- ├── README.md                 # Project documentation
 
 
-🚀 How to Run the Pipeline
+## 🚀 How to Run the Pipeline
 ⚙️ 1. Configure Database Connection
-Edit utils.py and replace with your PostgreSQL credentials:
+- Edit utils.py and replace with your PostgreSQL credentials:
 jdbc_url = "jdbc:postgresql://<HOST>:5432/<DB_NAME>"
 properties = {
     "user": "<USERNAME>",
@@ -72,48 +71,33 @@ properties = {
     "driver": "org.postgresql.Driver"
 }
 
-📥 2. Extract and Load to Staging (retail_stg)
-python extract.py
-
-Loads raw CSVs
-
-Cleans nulls and bad formats
-
-Writes cleaned data to retail_stg schema in PostgreSQL
+## 📥 2. Extract and Load to Staging (retail_stg)
+- python extract.py
+- Loads raw CSVs
+- Cleans nulls and bad formats
+- Writes cleaned data to retail_stg schema in PostgreSQL
 
 
-🔄 3. Transform into Star Schema (retail_dw)
+## 🔄 3. Transform into Star Schema (retail_dw)
+- python transform.py
+- Joins and transforms staging tables
+- Builds dimension and fact tables
+- Loads them into retail_dw schema in PostgreSQL
 
-python transform.py
+## 💾 4. Convert Tables to Parquet Format
+- python load.py
+- Reads tables from retail_dw
+- Converts to Parquet using Pandas
+- Stores files in /DirectoryTo/ETL/
 
-Joins and transforms staging tables
-
-Builds dimension and fact tables
-
-Loads them into retail_dw schema in PostgreSQL
-
-💾 4. Convert Tables to Parquet Format
-
-python load.py
-
-Reads tables from retail_dw
-
-Converts to Parquet using Pandas
-
-Stores files in /DirectoryTo/ETL/
-
-📊 Visualize with Power BI
-Open Power BI Desktop.
-
-Connect to:
-
-PostgreSQL → Load tables from retail_dw for live querying.
-
-Parquet files → Load locally exported Parquet data for offline analysis.
-
-Build visualizations using dimensions like store, dept, and date, and measures like weekly_sales
+## 📊 Visualize with Power BI
+- Open Power BI Desktop.
+- Connect to:
+- PostgreSQL → Load tables from retail_dw for live querying.
+- Parquet files → Load locally exported Parquet data for offline analysis.
+- Build visualizations using dimensions like store, dept, and date, and measures like weekly_sales
 
 
-📬 Contact
-For questions or improvements, feel free to reach out via LinkedIn or raise an issue in the repository.
+## 📬 Contact
+- For questions or improvements, feel free to reach out via LinkedIn or raise an issue in the repository.
 
